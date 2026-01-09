@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Toggle</title>
+</head>
+<body>
+    <div class="content">
+        <h1>Welcome to the official Puma store</h1>
+        <p>"Unleash your performance and style with the Puma app, your ultimate destination for premium sportswear and gear."</p>
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <div class="toggle-container">
+        <label class="switch">
+            <input type="checkbox" id="toggle-theme">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+    margin: 0;
+    padding: 0;
+}
+
+/* Light theme (default) */
+body.light {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body.dark {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* Styling the switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 50px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    border-radius: 50px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(14px);
+}
+
+/* Position the toggle switch at the top right corner */
+.toggle-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000; /* Ensure it's above other content */
+}
+</style>
+</html>

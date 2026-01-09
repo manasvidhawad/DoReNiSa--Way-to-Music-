@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, sans-serif;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            background: linear-gradient(135deg, #3a3d40, #181818); 
+        }
+        .slider-container { 
+            width: 80%; 
+            max-width: 500px; 
+            position: relative; 
+        }
+        .slider { 
+            width: 100%; 
+            overflow: hidden; 
+            border-radius: 15px; 
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); 
+        }
+        .slides { 
+            display: flex; 
+            transition: transform 0.5s ease-in-out; 
+        }
+        .slides img { 
+            width: 100%; 
+            object-fit: cover; 
+            flex-shrink: 0;   /* Ensures only one image per frame */
+        }
+        .buttons { 
+            position: absolute; 
+            top: 50%; 
+            width: 100%; 
+            display: flex; 
+            justify-content: space-between; 
+            transform: translateY(-50%); 
+        }
+        .prev, .next { 
+            background-color: rgba(255, 255, 255, 0.7); 
+            color: #333; 
+            border: none; 
+            padding: 10px; 
+            cursor: pointer; 
+            font-size: 20px; 
+            border-radius: 50%; 
+            transition: background-color 0.3s; 
+        }
+        .prev:hover, .next:hover { 
+            background-color: rgba(255, 255, 255, 0.9); 
+        }
+        .dots { 
+            display: flex; 
+            justify-content: center; 
+            padding: 10px 0; 
+        }
+        .dot { 
+            height: 10px; 
+            width: 10px; 
+            margin: 0 5px; 
+            background-color: #bbb; 
+            border-radius: 50%; 
+            display: inline-block; 
+            cursor: pointer; 
+            transition: background-color 0.3s; 
+        }
+        .active { 
+            background-color: #fff; 
+        }
+    </style>
+</head>
+<body>
+    <div class="slider-container">
+        <div class="slider">
+            <div class="slides">
+                <img src="m1.png" alt="Album 1">
+                <img src="m2.png" alt="Album 1">
+                <img src="m3.png" alt="Album 1">
+                <img src="m4.png" alt="Album 1">
+                <img src="m5.png" alt="Album 1">
+                <img src="m6.png" alt="Album 1">
+                <img src="m7.png" alt="Album 1">
+                <img src="m8.png" alt="Album 1">
+                <img src="m9.png" alt="Album 1">
+                <img src="m10.png" alt="Album 1">
+            </div>
+            <div class="buttons">
+                <button class="prev">❮</button>
+                <button class="next">❯</button>
+            </div>
+        </div>
+        <div class="dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelector('.slides');
+        const images = document.querySelectorAll('.slides img');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        const dots = document.querySelectorAll('.dot');
+        let currentIndex = 0;
+        const totalImages = images.length;
+
+        function updateSlidePosition() {
+            slides.style.transform = `translateX(-${currentIndex * 100}%)`;  // Show only one image at a time
+            updateDots();
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalImages;
+            updateSlidePosition();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+            updateSlidePosition();
+        }
+
+        function updateDots() {
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active');
+                if (index === currentIndex) {
+                    dot.classList.add('active');
+                }
+            });
+        }
+
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                updateSlidePosition();
+            });
+        });
+
+        // Initialize the first dot as active
+        updateDots();
+    </script>
+</body>
+</html>
